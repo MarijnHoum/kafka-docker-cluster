@@ -57,6 +57,25 @@ services:
       - kafka2-data:/bitnami/kafka
     networks:
       - api-network
+  kafka3:
+    image: bitnami/kafka:latest
+    container_name: kafka3
+    environment:
+      - KAFKA_CFG_NODE_ID=3
+      - KAFKA_CFG_PROCESS_ROLES=broker
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,EXTERNAL://:9094
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka3:9092,EXTERNAL://localhost:9394
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka0:9093,1@kafka1:9093,2@kafka2:9093
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_KRAFT_CLUSTER_ID=abcdefghijklmnopqrstuv
+    ports:
+      - "9392:9092"
+      - "9394:9094"
+    volumes:
+      - kafka3-data:/bitnami/kafka
+    networks:
+      - api-network
   kafka-ui:
     container_name: kafka-ui
     image: provectuslabs/kafka-ui:latest
@@ -74,5 +93,6 @@ volumes:
   kafka0-data:
   kafka1-data:
   kafka2-data:
+  kafka3-data:
 networks:
   api-network:
