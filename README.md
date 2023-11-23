@@ -29,3 +29,6 @@ Inside of the kafka nodes you can use the clientes that come with Kafka:
 ```shell
 /opt/bitnami/kafka/bin/kafka-topics.sh describe --bootstrap-server localhost:9092 --describe
 ```
+
+# Kafka UI 
+There is a Kafka UI Available on port 8080. asdfsadfa
